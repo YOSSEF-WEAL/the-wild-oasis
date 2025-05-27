@@ -19,7 +19,7 @@ const Input = styled.input`
   padding: 0.8rem 1.2rem;
 `;
 
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({ cabinToEdit = {}, onClose }) {
   const { id: editId, ...editValus } = cabinToEdit || {};
   const isEditSession = Boolean(editId);
 
@@ -29,33 +29,35 @@ function CreateCabinForm({ cabinToEdit = {} }) {
   const { errors } = formState;
 
   const { isCreating, createCabin } = useCreateCabin();
-  // ==============
+
   const { isEditing, editCabin } = useEditCabin();
-  // ==============
 
   const isWorking = isCreating || isEditing;
 
   function onSubmit(data) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
-    if (isEditSession)
+    if (isEditSession) {
       editCabin(
         { newCabinData: { ...data, image }, id: editId },
         {
           onSuccess: (data) => {
             reset();
+            onClose?.();
           },
         }
       );
-    else
+    } else {
       createCabin(
         { ...data, image: image },
         {
           onSuccess: (data) => {
             reset();
+            onClose?.();
           },
         }
       );
+    }
   }
 
   function onError(errors) {
@@ -63,7 +65,10 @@ function CreateCabinForm({ cabinToEdit = {} }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onClose ? "modal" : "regular"}
+    >
       <FormRow label="Cabin Name" error={errors?.name?.message}>
         <Input
           disabled={isWorking}
@@ -147,8 +152,8 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variations="secondary" type="reset">
-          Clear form
+        <Button variations="secondary" type="reset" onClick={() => onClose?.()}>
+          Cancel
         </Button>
         <Button disabled={isWorking}>
           {isEditSession ? "Edit Cabin" : "Create New Cabin"}

@@ -2,15 +2,7 @@ import styled from "styled-components";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import { useCabins } from "./useCabins";
-
-const Table = styled.div`
-  border: 1px solid var(--color-grey-200);
-
-  font-size: 1.4rem;
-  background-color: var(--color-grey-0);
-  border-radius: 7px;
-  overflow: hidden;
-`;
+import Table from "../../ui/Table";
 
 const TableHeader = styled.header`
   display: grid;
@@ -32,16 +24,18 @@ function CabinTable() {
 
   if (isLoading) return <Spinner />;
   if (error) return <div>{error.message}</div>;
+
+  //  role="table"
   return (
-    <Table role="table">
-      <TableHeader role="row">
+    <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
+      <Table.Header>
         <div>Image</div>
         <div>Cabin</div>
         <div>Capacity</div>
         <div>Price</div>
         <div>Discound</div>
         <div>Actions</div>
-      </TableHeader>
+      </Table.Header>
 
       {cabins.map((cabin) => (
         <CabinRow cabin={cabin} key={cabin.id} />
