@@ -41,7 +41,7 @@ function CabinTable() {
           <div>Capacity</div>
           <div>Price</div>
           <div>Discound</div>
-          <div>Actions</div>
+          <div>Action</div>
         </Table.Header>
 
         <Table.Body
