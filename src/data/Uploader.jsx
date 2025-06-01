@@ -41,12 +41,12 @@ async function createCabins() {
 }
 
 async function createBookings() {
-  // Bookings need a guestId and a cabinId. We can't tell Supabase IDs for each object, it will calculate them on its own. So it might be different for different people, especially after multiple uploads. Therefore, we need to first get all guestIds and cabinIds, and then replace the original IDs in the booking data with the actual ones from the DB
   const { data: guestsIds } = await supabase
     .from("guests")
     .select("id")
     .order("id");
-  const allGuestIds = guestsIds.map((cabin) => cabin.id);
+  const allGuestIds = guestsIds.map((guest) => guest.id);
+
   const { data: cabinsIds } = await supabase
     .from("cabins")
     .select("id")
@@ -54,13 +54,12 @@ async function createBookings() {
   const allCabinIds = cabinsIds.map((cabin) => cabin.id);
 
   const finalBookings = bookings.map((booking) => {
-    // Here relying on the order of cabins, as they don't have and ID yet
-    const cabin = cabins.at(booking.cabinId - 1);
+    const cabin = cabins.at(booking.cabinID - 1); // استخدام cabinID هنا
     const numNights = subtractDates(booking.endDate, booking.startDate);
     const cabinPrice = numNights * (cabin.regularPrice - cabin.discount);
     const extrasPrice = booking.hasBreakfast
       ? numNights * 15 * booking.numGuests
-      : 0; // hardcoded breakfast price
+      : 0;
     const totalPrice = cabinPrice + extrasPrice;
 
     let status;
@@ -88,8 +87,8 @@ async function createBookings() {
       cabinPrice,
       extrasPrice,
       totalPrice,
-      guestId: allGuestIds.at(booking.guestId - 1),
-      cabinId: allCabinIds.at(booking.cabinId - 1),
+      guestID: allGuestIds.at(booking.guestID - 1),
+      cabinID: allCabinIds.at(booking.cabinID - 1), // استخدام cabinID هنا
       status,
     };
   });
@@ -97,7 +96,7 @@ async function createBookings() {
   console.log(finalBookings);
 
   const { error } = await supabase.from("bookings").insert(finalBookings);
-  if (error) console.log(error.message);
+  if (error) console.error("Error inserting bookings:", error.message);
 }
 
 function Uploader() {
