@@ -1,6 +1,7 @@
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { PAGE_SIZE } from "../utils/constants";
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -58,34 +59,37 @@ const PaginationButton = styled.button`
   }
 `;
 
-const PAGE_SIZE = 10;
-
 export default function Pagination({ count }) {
-  const [serchParams, setSerchParams] = useSearchParams();
-  const currentPage = !serchParams.get("page")
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = !searchParams.get("page")
     ? 1
-    : Number(serchParams.get("page"));
+    : Number(searchParams.get("page"));
 
   const pageCount = Math.ceil(count / PAGE_SIZE);
 
   function nextPage() {
     const next = currentPage === pageCount ? currentPage : currentPage + 1;
 
-    serchParams.set("page", next);
-    setSerchParams(serchParams);
+    searchParams.set("page", next);
+    setSearchParams(searchParams);
   }
 
   function prevPage() {
     const prev = currentPage === 1 ? currentPage : currentPage - 1;
 
-    serchParams.set("page", prev);
-    setSerchParams(serchParams);
+    searchParams.set("page", prev);
+    setSearchParams(searchParams);
   }
+
+  if (pageCount <= 1) return null;
 
   return (
     <StyledPagination>
       <P>
-        Shawing <span>{(currentPage - 1) * PAGE_SIZE}</span> to <span>10</span>{" "}
+        Shawing <span>{(currentPage - 1) * PAGE_SIZE}</span> to{" "}
+        <span>
+          {currentPage === pageCount ? count : currentPage * PAGE_SIZE}
+        </span>{" "}
         of <span>{count}</span> Results
       </P>
       <Buttons>

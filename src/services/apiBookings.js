@@ -1,12 +1,15 @@
+import { PAGE_SIZE } from "../utils/constants";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
-export async function getBookings({ filter, sortBy }) {
+export async function getBookings({ filter, sortBy, page })
+{
   // const { data, error } = await supabase
   let query = supabase
     .from("bookings")
     .select(
-      "id, created_at, startDate, endDate, numNights, status, totalPrice, numGuests,  cabins(name), guests(fullName,fullName)"
+      "id, created_at, startDate, endDate, numNights, status, totalPrice, numGuests,  cabins(name), guests(fullName,email)",
+      { count: 'exact' }
     );
 
   // filter
@@ -20,23 +23,35 @@ export async function getBookings({ filter, sortBy }) {
       ascending: sortBy.direction === "asc",
     });
 
-  const { data, error } = await query;
+  if (page)
+  {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + (PAGE_SIZE - 1);
 
-  if (error) {
+    query = query.range(from, to)
+  }
+
+
+  const { data, error, count } = await query;
+
+  if (error)
+  {
     console.error(error);
     throw new Error("bookings could not be loaded");
   }
-  return data;
+  return { data, count };
 }
 
-export async function getBooking(id) {
+export async function getBooking(id)
+{
   const { data, error } = await supabase
     .from("bookings")
     .select("*, cabins(*), guests(*)")
     .eq("id", id)
     .single();
 
-  if (error) {
+  if (error)
+  {
     console.error(error);
     throw new Error("Booking not found");
   }
@@ -45,14 +60,16 @@ export async function getBooking(id) {
 }
 
 // Returns all BOOKINGS that are were created after the given date. Useful to get bookings created in the last 30 days, for example.
-export async function getBookingsAfterDate(date) {
+export async function getBookingsAfterDate(date)
+{
   const { data, error } = await supabase
     .from("bookings")
     .select("created_at, totalPrice, extrasPrice")
     .gte("created_at", date)
     .lte("created_at", getToday({ end: true }));
 
-  if (error) {
+  if (error)
+  {
     console.error(error);
     throw new Error("Bookings could not get loaded");
   }
@@ -61,7 +78,8 @@ export async function getBookingsAfterDate(date) {
 }
 
 // Returns all STAYS that are were created after the given date
-export async function getStaysAfterDate(date) {
+export async function getStaysAfterDate(date)
+{
   const { data, error } = await supabase
     .from("bookings")
     // .select('*')
@@ -69,7 +87,8 @@ export async function getStaysAfterDate(date) {
     .gte("startDate", date)
     .lte("startDate", getToday());
 
-  if (error) {
+  if (error)
+  {
     console.error(error);
     throw new Error("Bookings could not get loaded");
   }
@@ -78,7 +97,8 @@ export async function getStaysAfterDate(date) {
 }
 
 // Activity means that there is a check in or a check out today
-export async function getStaysTodayActivity() {
+export async function getStaysTodayActivity()
+{
   const { data, error } = await supabase
     .from("bookings")
     .select("*, guests(fullName, nationality, countryFlag)")
@@ -91,14 +111,16 @@ export async function getStaysTodayActivity() {
   // (stay.status === 'unconfirmed' && isToday(new Date(stay.startDate))) ||
   // (stay.status === 'checked-in' && isToday(new Date(stay.endDate)))
 
-  if (error) {
+  if (error)
+  {
     console.error(error);
     throw new Error("Bookings could not get loaded");
   }
   return data;
 }
 
-export async function updateBooking(id, obj) {
+export async function updateBooking(id, obj)
+{
   const { data, error } = await supabase
     .from("bookings")
     .update(obj)
@@ -106,18 +128,21 @@ export async function updateBooking(id, obj) {
     .select()
     .single();
 
-  if (error) {
+  if (error)
+  {
     console.error(error);
     throw new Error("Booking could not be updated");
   }
   return data;
 }
 
-export async function deleteBooking(id) {
+export async function deleteBooking(id)
+{
   // REMEMBER RLS POLICIES
   const { data, error } = await supabase.from("bookings").delete().eq("id", id);
 
-  if (error) {
+  if (error)
+  {
     console.error(error);
     throw new Error("Booking could not be deleted");
   }
