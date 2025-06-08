@@ -9,14 +9,23 @@ import SpinnerMini from "../../ui/SpinnerMini";
 
 function LoginForm() {
   const [email, setEmail] = useState("yweal423@gmail.com");
-  const [password, setPassword] = useState("yossefweal000");
+  const [password, setPassword] = useState("yossefWeal000");
   const { login, isLoading } = useLogin();
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password)
       toast.error("Please enter your username and password.");
 
-    login({ email, password });
+    login(
+      { email, password },
+      {
+        onSettled: () => {
+          setEmail("");
+          setPassword("");
+        },
+      }
+    );
   }
 
   return (

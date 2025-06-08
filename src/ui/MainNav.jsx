@@ -34,8 +34,8 @@ const StyeldNavLink = styled(NavLink)`
   &.active:link,
   &.active:visited {
     color: var(--color-grey-800);
-    /* background-color: var(--color-grey-50); */
-    background-color: var(--color-brand-100);
+    background-color: var(--color-grey-50);
+    /* background-color: var(--color-brand-100); */
     border-radius: var(--border-radius-sm);
     border-left: 4px solid var(--color-brand-700);
   }
