@@ -25,6 +25,14 @@ export const getToday = function (options = {})
   return today.toISOString();
 };
 
+export const getTomorrow = function ()
+{
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1); // Move to the next day
+  tomorrow.setUTCHours(0, 0, 0, 0); // Set to start of the day (UTC)
+  return tomorrow.toISOString();
+};
+
 export const formatCurrency = (value) =>
   new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(
     value
