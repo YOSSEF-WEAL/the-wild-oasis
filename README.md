@@ -56,8 +56,15 @@ The Wild Oasis is a hotel management application built with React, Vite, and Sup
 - **Cabin Management:** Allows administrators to manage hotel cabins effectively. They can add new cabins, edit cabin details (such as capacity and amenities), and remove cabins from the system. Ensures accurate and up-to-date information about available accommodations (see [`src/features/cabins`](src/features/cabins)).
 - **User Management:** Offers tools to manage user accounts and settings. Administrators can create new user accounts, modify user roles and permissions, and handle user authentication. This ensures secure access and appropriate control over the application (see [`src/features/authentication`](src/features/authentication) and [`src/pages/Users.jsx`](src/pages/Users.jsx)).
 - **Settings:** Provides a centralized location to update various application settings. This includes setting minimum and maximum booking lengths, defining the maximum number of guests per booking, and adjusting breakfast prices. Simplifies the configuration process and allows for easy adjustments to hotel policies (see [`src/features/settings`](src/features/settings)).
-- **Authentication:** Implements a secure user authentication system. Users can sign up for new accounts, log in with existing credentials, and manage their passwords. Protects sensitive data and ensures that only authorized users can access the application (see [`src/features/authentication`](src/features/authentication)).
+- **Authentication:** Implements a secure user authentication system. Users can sign up for new accounts, log in with existing credentials, and manage their passwords. Protects sensitive data and ensures that only authorized users can access the application (see [`src/features/authentication`](src.features/authentication)).
 - **Dark Mode:** Enhances user experience by allowing users to toggle between light and dark themes. This feature reduces eye strain and provides a comfortable viewing experience, especially in low-light conditions (see [`src/context/DarkModeContext.jsx`](src/context/DarkModeContext.jsx) and [`src/ui/DarkModeToggle.jsx`](src/ui/DarkModeToggle.jsx)).
 - **Check-in/Check-out:** Manages the check-in and check-out processes. Staff can add breakfast options, confirm payments, and finalize check-in/check-out procedures. Improves the efficiency of front desk operations and ensures accurate record-keeping (see [`src/features/check-in-out`](src.features/check-in-out)).
 - **Today Activity:** Displays a summary of activities for the current day. This includes check-ins, check-outs, and other relevant events. Provides a quick overview of daily operations and helps staff stay informed (see [`src/features/check-in-out/TodayActivity.jsx`](src/features/check-in-out/TodayActivity.jsx)).
 - **Pagination:** Implements pagination for handling large datasets, such as bookings and user lists. Improves performance and user experience by loading data in manageable chunks (see [`src/ui/Pagination.jsx`](src/ui/Pagination.jsx)).
+
+## Test Credentials
+
+For testing purposes, you can use the following credentials:
+
+- **Email:** yweal423@gmail.com
+- **Password:** yossefWeal000
