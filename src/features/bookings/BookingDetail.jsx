@@ -7,6 +7,7 @@ import Tag from "../../ui/Tag";
 import ButtonGroup from "../../ui/ButtonGroup";
 import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
+import Empty from "../../ui/Empty";
 
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { useBooking } from "./useBooking";
@@ -25,14 +26,14 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
-  const { isLoading, booking } = useBooking();
+  const { isPending, booking } = useBooking();
   const moveBack = useMoveBack();
   const navigate = useNavigate();
   const { checkOut, isCheckOut } = useCheckedOut();
   const { isDeleting, deleteBooking } = useDeleteBooking();
 
-  if (isLoading) return <Spinner />;
-  if (!booking) return <p>Booking not found</p>;
+  if (isPending) return <Spinner />;
+  if (!booking) return <Empty resourceName="Booking" />;
 
   const { status, id: bookingId } = booking;
 

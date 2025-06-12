@@ -3,8 +3,7 @@ import { getBookings } from "../../services/apiBookings";
 import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "../../utils/constants";
 
-export function useBookings()
-{
+export function useBookings() {
   const quryClient = useQueryClient();
   const [searchParams] = useSearchParams();
 
@@ -21,13 +20,11 @@ export function useBookings()
   const sortBy = { field, direction };
 
   // Pagination
-  const page = !searchParams.get("page")
-    ? 1
-    : Number(searchParams.get("page"));
+  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
   // qury
   const {
-    isLoading,
+    isPending,
     data: { data: bookings, count } = {},
     error,
   } = useQuery({
@@ -37,19 +34,17 @@ export function useBookings()
 
   // PRE-FETCHING
   const pageCount = Math.ceil(count / PAGE_SIZE);
-  if (page < pageCount)
-  {
+  if (page < pageCount) {
     quryClient.prefetchQuery({
       queryKey: ["bookings", filter, sortBy, page + 1],
       queryFn: () => getBookings({ filter, sortBy, page: page + 1 }),
     });
-  };
-  if (page > 1)
-  {
+  }
+  if (page > 1) {
     quryClient.prefetchQuery({
       queryKey: ["bookings", filter, sortBy, page - 1],
       queryFn: () => getBookings({ filter, sortBy, page: page - 1 }),
     });
-  };
-  return { isLoading, bookings, error, count };
+  }
+  return { isPending, bookings, error, count };
 }

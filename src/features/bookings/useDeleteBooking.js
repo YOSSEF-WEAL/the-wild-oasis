@@ -5,7 +5,7 @@ import { deleteBooking as deleteBookingsAPI } from "../../services/apiBookings";
 export function useDeleteBooking() {
   const queryClient = useQueryClient();
 
-  const { isLoading: isDeleting, mutate: deleteBooking } = useMutation({
+  const { isPending: isDeleting, mutate: deleteBooking } = useMutation({
     mutationFn: deleteBookingsAPI,
     onSuccess: () => {
       toast.success("Booking Successfully Deleted");

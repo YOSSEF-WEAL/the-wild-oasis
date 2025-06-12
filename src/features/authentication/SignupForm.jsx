@@ -10,7 +10,7 @@ import { useSignup } from "./useSignup";
 function SignupForm() {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
-  const { signup, isLoading } = useSignup();
+  const { signup, isPending } = useSignup();
 
   function onSubmit({ fullName, email, password }) {
     signup(
@@ -27,7 +27,7 @@ function SignupForm() {
         <Input
           type="text"
           id="fullName"
-          disabled={isLoading}
+          disabled={isPending}
           {...register("fullName", { required: "This field is required" })}
         />
       </FormRow>
@@ -36,7 +36,7 @@ function SignupForm() {
         <Input
           type="email"
           id="email"
-          disabled={isLoading}
+          disabled={isPending}
           {...register("email", {
             required: "This field is required",
             pattern: {
@@ -54,7 +54,7 @@ function SignupForm() {
         <Input
           type="password"
           id="password"
-          disabled={isLoading}
+          disabled={isPending}
           {...register("password", {
             required: "This field is required",
             minLength: {
@@ -68,7 +68,7 @@ function SignupForm() {
       <FormRow label="Repeat password" error={errors?.passwordConfirm?.message}>
         <Input
           type="password"
-          disabled={isLoading}
+          disabled={isPending}
           id="passwordConfirm"
           {...register("passwordConfirm", {
             required: "This field is required",
@@ -84,11 +84,11 @@ function SignupForm() {
           variations="secondary"
           type="reset"
           onClick={reset}
-          disabled={isLoading}
+          disabled={isPending}
         >
           Cancel
         </Button>
-        <Button disabled={isLoading}>Create new user</Button>
+        <Button disabled={isPending}>Create new user</Button>
       </FormRow>
     </Form>
   );

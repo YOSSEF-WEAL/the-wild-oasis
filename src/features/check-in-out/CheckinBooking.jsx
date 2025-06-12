@@ -25,10 +25,10 @@ const Box = styled.div`
 `;
 
 function CheckinBooking() {
-  const { isLoading, booking = {} } = useBooking();
+  const { isPending, booking = {} } = useBooking();
   const moveBack = useMoveBack();
   const { checkin, isCheckin } = useCheckedin();
-  const { isLoading: isLoadingSettings, settings } = useSetting();
+  const { isPending: isPendingSettings, settings } = useSetting();
   const {
     id: bookingId,
     guests,
@@ -62,7 +62,7 @@ function CheckinBooking() {
     }
   }
 
-  if (isLoading || isLoadingSettings) return <Spinner />;
+  if (isPending || isPendingSettings) return <Spinner />;
   return (
     <>
       <Row type="horizontal">

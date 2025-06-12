@@ -40,14 +40,14 @@ const NoActivity = styled.p`
 `;
 
 function TodayActivity() {
-  const { isLoading, activitis } = useTodayActivity();
+  const { isPending, activitis } = useTodayActivity();
 
   return (
     <StyledToday>
       <Row type="horizontal">
         <Heading as="h2">Today</Heading>
       </Row>
-      {!isLoading ? (
+      {!isPending ? (
         activitis?.length > 0 ? (
           <TodayList>
             {activitis.map((activiti) => (

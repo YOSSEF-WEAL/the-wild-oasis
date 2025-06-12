@@ -16,18 +16,18 @@ function ProtectedRoute({ children }) {
   const navigate = useNavigate();
 
   // 1. Load the authanticated user
-  const { isLoading, user, isAuthenticated } = useUser();
+  const { isPending, user, isAuthenticated } = useUser();
 
   // 2. If there is No authanticated user, redirect to the /login
   useEffect(
     function () {
-      if (!isAuthenticated && !isLoading) navigate("/login");
+      if (!isAuthenticated && !isPending) navigate("/login");
     },
-    [isAuthenticated, isLoading, navigate]
+    [isAuthenticated, isPending, navigate]
   );
 
   // 3. while loding, show a spiner
-  if (isLoading)
+  if (isPending)
     return (
       <FullPage>
         <Spinner />
