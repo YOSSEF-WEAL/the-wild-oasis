@@ -23,7 +23,7 @@ The Wild Oasis is a hotel management application built with React, Vite, and Sup
 1.  Clone the repository:
 
     ```sh
-    git clone <repository-url>
+    git clone https://github.com/YOSSEF-WEAL/the-wild-oasis
     ```
 
 2.  Navigate to the project directory:
