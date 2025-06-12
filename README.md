@@ -1,5 +1,47 @@
 # The Wild Oasis
 
+A modern hotel management system built with React and Vercel.
+
+## 🚀 Live Demo
+
+Visit the live application: [The Wild Oasis](https://the-wild-oasis-lake-psi.vercel.app/)
+
+## 🛠️ Built With
+
+<div align="center">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/Styled_Components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white" alt="Styled Components" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
+  <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase" />
+  <img src="https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=react-query&logoColor=white" alt="React Query" />
+</div>
+
+## ✨ Features
+
+- 🔐 User Authentication
+- 🏨 Cabin Management
+- 📅 Booking System
+- 👥 User Management
+- 🌓 Dark/Light Mode
+- 📱 Responsive Design
+
+## 🚀 Getting Started
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
 ## Description
 
 The Wild Oasis is a hotel management application built with React, Vite, and Supabase. It provides functionalities for managing bookings, cabins, users, and settings.
@@ -59,12 +101,4 @@ The Wild Oasis is a hotel management application built with React, Vite, and Sup
 - **Authentication:** Implements a secure user authentication system. Users can sign up for new accounts, log in with existing credentials, and manage their passwords. Protects sensitive data and ensures that only authorized users can access the application (see [`src/features/authentication`](src.features/authentication)).
 - **Dark Mode:** Enhances user experience by allowing users to toggle between light and dark themes. This feature reduces eye strain and provides a comfortable viewing experience, especially in low-light conditions (see [`src/context/DarkModeContext.jsx`](src/context/DarkModeContext.jsx) and [`src/ui/DarkModeToggle.jsx`](src/ui/DarkModeToggle.jsx)).
 - **Check-in/Check-out:** Manages the check-in and check-out processes. Staff can add breakfast options, confirm payments, and finalize check-in/check-out procedures. Improves the efficiency of front desk operations and ensures accurate record-keeping (see [`src/features/check-in-out`](src.features/check-in-out)).
-- **Today Activity:** Displays a summary of activities for the current day. This includes check-ins, check-outs, and other relevant events. Provides a quick overview of daily operations and helps staff stay informed (see [`src/features/check-in-out/TodayActivity.jsx`](src/features/check-in-out/TodayActivity.jsx)).
-- **Pagination:** Implements pagination for handling large datasets, such as bookings and user lists. Improves performance and user experience by loading data in manageable chunks (see [`src/ui/Pagination.jsx`](src/ui/Pagination.jsx)).
-
-## Test Credentials
-
-For testing purposes, you can use the following credentials:
-
-- **Email:** yweal423@gmail.com
-- **Password:** yossefWeal000
+- **Today Activity:** Displays a summary of activities for the current day. This includes check-ins, check-outs, and other relevant events. Provides a quick overview of daily operations and helps staff stay informed (see [`
